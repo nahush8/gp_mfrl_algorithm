@@ -1,5 +1,5 @@
 #goal definition
-int32 action
+int32[] action
 ---
 #result definition
 int32 reward
