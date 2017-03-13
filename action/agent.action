@@ -1,0 +1,13 @@
+#goal definition
+int32 action
+---
+#result definition
+int32 reward
+float32[] state
+bool terminal
+---
+#feedback
+int32 reward
+float32[] state
+bool terminal
+
