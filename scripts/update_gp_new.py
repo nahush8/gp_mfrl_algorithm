@@ -25,8 +25,10 @@ class update_transition_class:
 		#T= [[[0 for I in xrange(numOfStates)] for J in xrange(numOfStates)] for K in xrange(numOfActions)]
 		T = {}
 		p = []
-
-		actions = [(0,1,0),(0,-1,0),(1,0,0),(-1,0,0),(0,0,1),(0,0,-1)]
+		if env == grid:
+			actions = [(0,1,0),(0,-1,0),(1,0,0),(-1,0,0)]
+		else:
+			actions = [(0,1,0),(0,-1,0),(1,0,0),(-1,0,0),(0,0,1),(0,0,-1)]
 		#states = [ (i , j) for i in range(-GRID,GRID+1) for j in range(-GRID,GRID+1)]
 
 		trainingX, targetX, trainingY, targetY, trainingZ, targetZ = [], [], [], [], [], []
@@ -83,7 +85,10 @@ class update_transition_class:
 				neighborZmin = max(min(i[2]-2,GRID),-GRID)
 				neighborZmax = max(min(i[2]+3,GRID),-GRID)
 
-				neighborStates = [ (itr1, itr2, itr3) for itr1 in range(neighborXmin,neighborXmax) for itr2 in range(neighborYmin,neighborYmax) for itr3 in range(neighborZmin,neighborZmax)]
+				if env == grid:
+					neighborStates = [ (itr1, itr2, itr3) for itr1 in range(neighborXmin,neighborXmax) for itr2 in range(neighborYmin,neighborYmax) for itr3 in range(neighborZmin,neighborZmax)]
+				else:
+					neighborStates = [ (itr1, itr2, 0) for itr1 in range(neighborXmin,neighborXmax) for itr2 in range(neighborYmin,neighborYmax)]
 				
 				for j in neighborStates:
 					#prob = self.probability_of_states(j[0],j[1],mu[0],sigma*np.eye(2))
@@ -101,7 +106,7 @@ class update_transition_class:
 	Integrate Gaussian over the rectangle.
 
 	'''					
-	def probability_of_states(self, x, y, z,mu, variance):
+	def probability_of_states(self, x, y, z, mu, variance):
 		var = multivariate_normal (mean = mu, cov = variance)
 		#print variance
 		return var.pdf([x, y, z]) 

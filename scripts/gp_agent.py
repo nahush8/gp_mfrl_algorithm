@@ -86,7 +86,8 @@ def agent_client():
 
     sigma_sum_threshZ = [0.5, 1.0]
     sigmaThreshZ = [0.1, 0.2]
-
+    
+    #TODO Make the actions more generic like a 3D vector. 
     actionList = [(0,1,0),(0,-1,0),(1,0,0),(-1,0,0),(0,0,1),(0,0,-1)]
 
     devQueueX = deque([], 5)
@@ -103,7 +104,7 @@ def agent_client():
     Initialize T
     '''
     # Inti
-    current_state_for_grid_world_reference = old_state_2d
+    current_state_for_grid_world_reference = old_state
     for j in range (0,initialTrainingEpisodes):
         action_value = actionList_2d[random.randint(0,3)]
 
@@ -134,13 +135,14 @@ def agent_client():
         Change to optimal actions once planner is implemented
         '''
         if currentEnv == 'grid':
+            #Actions with no movement in Z direction
             action_value = actionList[random.randint(0,3)]
         else
             action_value = actionList[random.randint(0,5)]
 
 
         if (envList.index(currentEnv) > 0 and 
-            check(old_state_3d, currentEnv) and 
+            check(old_state, currentEnv) and 
             global_var.sigmaDictX.get((int(old_state[0]),action_value[0]), 99) > sigmaThreshX[envList.index(currentEnv)-1] and 
             global_var.sigmaDictY.get((int(old_state[1]),action_value[1]),99) > sigmaThreshY[envList.index(currentEnv)-1] and
             global_var.sigmaDictZ.get((int(old_state[2]),action_value[2]), 99) > sigmaThreshZ[envList.index(currentEnv)-1]:

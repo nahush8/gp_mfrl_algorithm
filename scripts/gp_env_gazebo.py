@@ -40,11 +40,6 @@ class agentAction(object):
 		Description of one wall. 
 		From x=4,y =-4 to x =-4 y = 4
 		'''
-
-		WALL_NS_Y = -4
-		WALL_NS_XMIN = -4
-		WALL_NS_XMAX = 4
-
 		#self._result.reward = 1
 		#self._feedback.reward = -1
 		#self._as.publish_feedback(self._feedback)	
@@ -60,6 +55,7 @@ class agentAction(object):
 		a = self.xPos + action_value[0]
 		b = self.yPos + action_value[1]
 		c = self.zPos + action_value[2]
+		
 		pose.pose.position.x = (max(min(a,GRID),-GRID)
 		pose.pose.position.y = (max(min(b,GRID),-GRID)
 		pose.pose.position.z = (max(min(c,GRID),-GRID)
